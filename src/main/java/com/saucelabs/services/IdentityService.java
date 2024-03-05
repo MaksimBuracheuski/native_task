@@ -1,0 +1,40 @@
+package com.saucelabs.services;
+
+import org.testng.Assert;
+
+import com.saucelabs.constant.TimeConstant;
+import com.saucelabs.dto.identity.UserBuilder;
+import com.saucelabs.pages.common.LoginPageBase;
+import com.saucelabs.pages.common.ProductListPageBase;
+import com.zebrunner.carina.utils.factory.ICustomTypePageFactory;
+
+public class IdentityService implements ICustomTypePageFactory {
+
+    public ProductListPageBase loginAsStandardUser() {
+        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Login page isn't opened");
+        ProductListPageBase homePage = loginPage.login(UserBuilder.newInstance().standardUser().build());
+        return homePage;
+    }
+
+    public ProductListPageBase loginAsProblemUser() {
+        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Login page isn't opened");
+        ProductListPageBase homePage = loginPage.login(UserBuilder.newInstance().problemUser().build());
+        return homePage;
+    }
+
+    public ProductListPageBase loginAsStandardUserByAutofill() {
+        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Login page isn't opened");
+        ProductListPageBase homePage = loginPage.loginByAutofill(UserBuilder.newInstance().standardUser().build());
+        return homePage;
+    }
+
+    public ProductListPageBase loginAsProblemUserByAutofill() {
+        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Login page isn't opened");
+        ProductListPageBase homePage = loginPage.loginByAutofill(UserBuilder.newInstance().standardUser().build());
+        return homePage;
+    }
+}
