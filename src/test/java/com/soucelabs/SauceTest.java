@@ -3,16 +3,16 @@ package com.soucelabs;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import com.saucelabs.components.ProductContainer;
+import com.saucelabs.components.ProductContainerBase;
 import com.saucelabs.constant.TimeConstant;
 import com.saucelabs.dto.identity.UserBuilder;
 import com.saucelabs.dto.product.Product;
 import com.saucelabs.pages.common.CartPageBase;
 import com.saucelabs.pages.common.LoginPageBase;
-import com.saucelabs.pages.common.ProductDetailsPage;
+import com.saucelabs.pages.common.ProductDetailsPageBase;
 import com.saucelabs.pages.common.ProductListPageBase;
 
-public class SoucelabsTest extends BaseTest {
+public class SauceTest extends BaseTest {
 
     @Test
     public void LoginByUserDataTest() {
@@ -62,10 +62,13 @@ public class SoucelabsTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         ProductListPageBase productListPage = identityService.loginAsStandardUserByAutofill();
         softAssert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
-        ProductContainer productContainer = productListPage.getRandomProductContainer();
+        ProductContainerBase productContainer = productListPage.getRandomProductContainer();
 
         //Verify base elements in product container
-        productContainer.validateProductContainerElements(softAssert);
+        softAssert.assertTrue(productContainer.isATBButtonPresent(), "ATB button isn't presented in product container");
+        softAssert.assertTrue(productContainer.isProductPricePresent(), "Product price button isn't presented in product container");
+        softAssert.assertTrue(productContainer.isProductImagePresent(), "Product image button isn't presented in product container");
+        softAssert.assertTrue(productContainer.isProductNamePresent(), "Product name button isn't presented in product container");
 
         //Verify working ATB button, Remove buttons, ATB using DragAndDrop
         productContainer.clickATBButton();
@@ -85,12 +88,17 @@ public class SoucelabsTest extends BaseTest {
         softAssert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
 
         //Verify product data on PLP and PDP
-        ProductContainer productContainer = productListPage.getRandomProductContainer();
+        ProductContainerBase productContainer = productListPage.getRandomProductContainer();
         Product product = new Product(productContainer.getProductName(), productContainer.getProductPrice());
-        ProductDetailsPage productDetailsPage = productListPage.openPDP(productContainer);
+        ProductDetailsPageBase productDetailsPage = productListPage.openPDP(productContainer);
         softAssert.assertTrue(productDetailsPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product Details Page isn't opened");
-        productDetailsPage.validateBaseElementsOnPDP(softAssert);
-        productDetailsPage.validateProductData(product, softAssert);
+        softAssert.assertTrue(productDetailsPage.isProductNamePresent(), "Product name isn't presented on PDP");
+        softAssert.assertTrue(productDetailsPage.isProductDescriptionPresent(), "Product description isn't presented on PDP");
+        softAssert.assertTrue(productDetailsPage.isProductImagePresent(), "Product image isn't presented on PDP");
+        softAssert.assertTrue(productDetailsPage.isProductPricePresent(), "Product price isn't presented on PDP");
+        softAssert.assertTrue(productDetailsPage.isATBButtonPresent(), "ATB button isn't presented on PDP");
+        softAssert.assertTrue(productDetailsPage.getProductName().equals(product.getName()), "Product name isn't correct on PDP");
+        softAssert.assertTrue(productDetailsPage.getProductPrice().equals(product.getPrice()), "Product price isn't correct on PDP");
 
         //Verify working ATB button, Remove buttons, Back button
         productDetailsPage.clickATBButton();
@@ -108,7 +116,7 @@ public class SoucelabsTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         ProductListPageBase productListPage = identityService.loginAsProblemUserByAutofill();
         softAssert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
-        ProductDetailsPage productDetailsPage = productListPage.openPDP(productListPage.getRandomProductContainer());
+        ProductDetailsPageBase productDetailsPage = productListPage.openPDP(productListPage.getRandomProductContainer());
 
         //Verify product data on PDP and Cart page
         softAssert.assertTrue(productDetailsPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product Details Page isn't opened");
@@ -116,12 +124,21 @@ public class SoucelabsTest extends BaseTest {
         productDetailsPage.clickATBButton();
         CartPageBase cartPage = productDetailsPage.getHeaderMenu().openCartPage();
         cartPage.getProducts().stream().forEach(item -> {
-            item.validateBaseElements(softAssert);
-            item.validateProductInCart(product, softAssert);
+            item.swipeToProductCart();
+            softAssert.assertTrue(item.isProductQuantityPresent(), "Quantity of product isn't presented");
+            softAssert.assertTrue(item.isProductNamePresent(), "Product name isn't presented");
+            softAssert.assertTrue(item.isProductDescriptionPresent(), "Product description isn't presented");
+            softAssert.assertTrue(item.isProductPricePresent(), "Product price isn't presented");
+            softAssert.assertTrue(item.isRemoveButtonPresent(), "Remove button isn't presented");
+            softAssert.assertTrue(item.getProductName().equals(product.getName()), "Product name isn't correct");
+            softAssert.assertTrue(item.getProductDescription().equals(product.getDescription()), "Product name isn't correct");
+            softAssert.assertTrue(item.getProductPrice().equals(product.getPrice()), "Product price isn't correct");
         });
 
         //Verify Cart page elements
-        cartPage.validateCartElements(softAssert);
+        softAssert.assertTrue(cartPage.isTitlePresent(), "Title isn't presented on Cart page");
+        softAssert.assertTrue(cartPage.isContinueShoppingButtonPresent(), "Continue shopping button isn't presented on Cart page");
+        softAssert.assertTrue(cartPage.isCheckoutButtonPresent(), "Checkout button isn't presented on Cart page");
         productListPage = cartPage.clickContinueShoppingButton();
         softAssert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product List Page isn't opened");
         softAssert.assertAll();

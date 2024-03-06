@@ -4,8 +4,9 @@ import org.openqa.selenium.WebDriver;
 
 import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 
-public class CheckoutBasePage extends SoucelabsAbsrtactPage {
-    public CheckoutBasePage(WebDriver driver) {
+public class CheckoutPageBase extends SauceAbstractPage {
+
+    public CheckoutPageBase(WebDriver driver) {
         super(driver);
         setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
     }

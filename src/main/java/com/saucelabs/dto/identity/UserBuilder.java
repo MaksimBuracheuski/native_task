@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserBuilder {
+
     public static final String STANDARD_USERNAME = "standard_user";
     public static final String LOCKED_OUT_USERNAME = "locked_out_user";
     public static final String PROBLEM_USERNAME = "problem_user";

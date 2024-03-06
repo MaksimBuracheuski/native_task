@@ -1,34 +1,31 @@
 package com.saucelabs.pages.ios;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
-import org.testng.asserts.SoftAssert;
 
 import com.saucelabs.constant.TimeConstant;
-import com.saucelabs.dto.product.Product;
-import com.saucelabs.pages.common.ProductDetailsPage;
+import com.saucelabs.pages.common.ProductDetailsPageBase;
 import com.saucelabs.pages.common.ProductListPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductDetailsPage.class)
-public class IOSProductDetailsPage extends ProductDetailsPage implements IMobileUtils {
+@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductDetailsPageBase.class)
+public class ProductDetailsPage extends ProductDetailsPageBase implements IMobileUtils {
 
     @ExtendedFindBy(iosPredicate = "label == 'BACK TO PRODUCTS' AND name == 'test-BACK TO PRODUCTS'")
     private ExtendedWebElement backButton;
 
-    @FindBy(xpath = "//XCUIElementTypeOther[@name='test-Image Container']/XCUIElementTypeOther/XCUIElementTypeImage")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Image Container'`]/**/XCUIElementTypeImage")
     private ExtendedWebElement productImage;
 
-    @FindBy(xpath = "//XCUIElementTypeOther[@name='test-Description']/XCUIElementTypeStaticText[1]")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Description'`]/XCUIElementTypeStaticText[1]")
     private ExtendedWebElement productName;
 
-    @FindBy(xpath = "//XCUIElementTypeOther[@name='test-Description']/XCUIElementTypeStaticText[2]")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Description'`]/XCUIElementTypeStaticText[2]")
     private ExtendedWebElement productDescription;
 
-    @FindBy(xpath = "//XCUIElementTypeStaticText[@name='test-Price']")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`name == 'test-Price'`]")
     private ExtendedWebElement productPrice;
 
     @ExtendedFindBy(iosPredicate = "label == 'ADD TO CART' AND name == 'test-ADD TO CART'")
@@ -37,24 +34,34 @@ public class IOSProductDetailsPage extends ProductDetailsPage implements IMobile
     @ExtendedFindBy(iosPredicate = "label == 'REMOVE' AND name == 'test-REMOVE'")
     private ExtendedWebElement removeButton;
 
-    public IOSProductDetailsPage(WebDriver driver) {
+    public ProductDetailsPage(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(backButton);
     }
 
     @Override
-    public void validateBaseElementsOnPDP(SoftAssert softAssert) {
-        softAssert.assertTrue(productName.isElementPresent(TimeConstant.PAGE_OPENED_TO), "Product name isn't presented on PDP");
-        softAssert.assertTrue(productDescription.isElementPresent(TimeConstant.PAGE_OPENED_TO), "Product description isn't presented on PDP");
-        softAssert.assertTrue(productImage.isElementPresent(TimeConstant.PAGE_OPENED_TO), "Product image isn't presented on PDP");
-        softAssert.assertTrue(swipe(productPrice), "Product price isn't presented on PDP");
-        softAssert.assertTrue(swipe(addToBagButton), "ATB button isn't presented on PDP");
+    public boolean isProductNamePresent() {
+        return productName.isElementPresent(TimeConstant.PAGE_OPENED_TO);
     }
 
     @Override
-    public void validateProductData(Product product, SoftAssert softAssert) {
-        softAssert.assertTrue(productName.getText().equals(product.getName()), "Product name isn't correct on PDP");
-        softAssert.assertTrue(productPrice.getText().equals(product.getPrice()), "Product price isn't correct on PDP");
+    public boolean isProductDescriptionPresent() {
+        return productDescription.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isProductImagePresent() {
+        return productImage.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isProductPricePresent() {
+        return swipe(productPrice);
+    }
+
+    @Override
+    public boolean isATBButtonPresent() {
+        return swipe(addToBagButton);
     }
 
     @Override

@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = HamburgerMenuBase.class)
-public class IOSHamburgerMenu extends HamburgerMenuBase {
+public class HamburgerMenu extends HamburgerMenuBase {
 
     @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'ALL ITEMS'`]")
     private ExtendedWebElement allItemsButton;
@@ -38,7 +38,7 @@ public class IOSHamburgerMenu extends HamburgerMenuBase {
     @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'RESET APP STATE'`]")
     private ExtendedWebElement resetAppStateButton;
 
-    public IOSHamburgerMenu(WebDriver driver) {
+    public HamburgerMenu(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(allItemsButton);
     }
