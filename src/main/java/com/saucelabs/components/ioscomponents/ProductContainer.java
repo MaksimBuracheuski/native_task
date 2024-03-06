@@ -21,10 +21,10 @@ public class ProductContainer extends ProductContainerBase {
     @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`name == 'test-Price'`]")
     private ExtendedWebElement productPrice;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'ADD TO CART'`]/XCUIElementTypeOther")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'ADD TO CART'`]")
     private ExtendedWebElement addToCartButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'REMOVE'`]/XCUIElementTypeOther")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'REMOVE'`]")
     private ExtendedWebElement removeButton;
 
     public ProductContainer(WebDriver driver) {
@@ -36,7 +36,7 @@ public class ProductContainer extends ProductContainerBase {
     }
 
     @Override
-    public void clickATBButton() {
+    public void clickAddToCartButton() {
         addToCartButton.click();
     }
 

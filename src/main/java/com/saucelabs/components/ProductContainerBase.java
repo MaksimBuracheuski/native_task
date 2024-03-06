@@ -16,7 +16,7 @@ public abstract class ProductContainerBase extends AbstractUIObject implements I
         super(driver, searchContext);
     }
 
-    public abstract void clickATBButton();
+    public abstract void clickAddToCartButton();
 
     public abstract void clickRemoveButton();
 

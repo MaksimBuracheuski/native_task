@@ -29,7 +29,7 @@ public abstract class ProductDetailsPageBase extends SauceAbstractPage {
 
     public abstract boolean isRemoveButtonPresent();
 
-    public abstract void clickATBButton();
+    public abstract void clickAddToCartButton();
 
     public abstract void clickRemoveButton();
 

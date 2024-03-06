@@ -86,7 +86,7 @@ public class ProductDetailsPage extends ProductDetailsPageBase implements IMobil
     }
 
     @Override
-    public void clickATBButton() {
+    public void clickAddToCartButton() {
         swipe(addToBagButton);
         addToBagButton.click();
     }

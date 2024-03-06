@@ -25,7 +25,7 @@ public class ProductCartContainer extends ProductCartContainerBase implements IM
     @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Price'`]/XCUIElementTypeStaticText")
     private ExtendedWebElement productPrice;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Price'`]/XCUIElementTypeOther")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'REMOVE'`]")
     private ExtendedWebElement removeButton;
 
     public ProductCartContainer(WebDriver driver) {
