@@ -4,22 +4,22 @@ import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 
-import com.saucelabs.components.ProductContainer;
+import com.saucelabs.components.ProductContainerBase;
 import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 
 
-public abstract class ProductListPageBase extends SoucelabsAbsrtactPage {
+public abstract class ProductListPageBase extends SauceAbstractPage {
+
     public ProductListPageBase(WebDriver driver) {
         super(driver);
         setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
     }
 
-    public abstract <T extends ProductContainer> List<T> getProducts();
+    public abstract <T extends ProductContainerBase> List<T> getProducts();
 
-    public abstract ProductContainer getRandomProductContainer();
+    public abstract ProductContainerBase getRandomProductContainer();
 
-    public abstract void addProductToCartByDD(ProductContainer productContainer);
+    public abstract void addProductToCartByDD(ProductContainerBase productContainer);
 
-    public abstract ProductDetailsPage openPDP(ProductContainer productContainer);
-
+    public abstract ProductDetailsPageBase openPDP(ProductContainerBase productContainer);
 }

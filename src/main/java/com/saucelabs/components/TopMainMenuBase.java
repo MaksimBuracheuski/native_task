@@ -7,12 +7,13 @@ import com.saucelabs.pages.common.CartPageBase;
 import com.saucelabs.pages.common.HamburgerMenuBase;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
 
-public abstract class TopMainMenu extends AbstractUIObject {
-    public TopMainMenu(WebDriver driver) {
+public abstract class TopMainMenuBase extends AbstractUIObject {
+
+    public TopMainMenuBase(WebDriver driver) {
         super(driver);
     }
 
-    public TopMainMenu(WebDriver driver, SearchContext searchContext) {
+    public TopMainMenuBase(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
 
@@ -23,5 +24,4 @@ public abstract class TopMainMenu extends AbstractUIObject {
     public abstract boolean isCartEmpty();
 
     public abstract CartPageBase openCartPage();
-
 }

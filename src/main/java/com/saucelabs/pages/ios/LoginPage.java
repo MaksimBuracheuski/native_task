@@ -11,7 +11,7 @@ import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = LoginPageBase.class)
-public class IOSLoginPage extends LoginPageBase implements IMobileUtils {
+public class LoginPage extends LoginPageBase implements IMobileUtils {
 
     @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'Username Password LOGIN'`]/XCUIElementTypeOther[1]/XCUIElementTypeImage")
     public ExtendedWebElement title;
@@ -28,41 +28,43 @@ public class IOSLoginPage extends LoginPageBase implements IMobileUtils {
     @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'Sorry, this user has been locked out.'`]")
     public ExtendedWebElement lockedOutErrorMessage;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'standard_user'`]")
-    public ExtendedWebElement standardUserButton;
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == '%s'`]")
+    public ExtendedWebElement userButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'problem_user'`]")
-    public ExtendedWebElement problemUserButton;
-
-    public IOSLoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(title);
     }
 
     @Override
     public ProductListPageBase login(User user) {
-        usernameField.type(user.getUsername());
-        passwordField.type(user.getPassword());
-        loginButton.click();
+        typeUserData(user);
+        clickLoginButton();
         return initPage(getDriver(), ProductListPageBase.class);
     }
 
     @Override
     public ProductListPageBase loginByAutofill(User user) {
-        if (user.getUsername().equals(standardUserButton.getText())) {
-            swipe(standardUserButton);
-            standardUserButton.click();
-        } else {
-            swipe(problemUserButton);
-            problemUserButton.click();
-        }
-        loginButton.click();
+        ExtendedWebElement userBtn = userButton.format(user.getUsername());
+        swipe(userBtn);
+        userBtn.click();
+        clickLoginButton();
         return initPage(getDriver(), ProductListPageBase.class);
     }
 
     @Override
     public void typeUserData(User user) {
+        typeUserName(user);
+        typeUserPassword(user);
+    }
+
+    @Override
+    public void typeUserName(User user) {
         usernameField.type(user.getUsername());
+    }
+
+    @Override
+    public void typeUserPassword(User user) {
         passwordField.type(user.getPassword());
     }
 

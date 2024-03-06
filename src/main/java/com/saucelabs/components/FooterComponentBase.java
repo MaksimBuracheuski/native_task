@@ -5,12 +5,13 @@ import org.openqa.selenium.WebDriver;
 
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
 
-public class FooterComponent extends AbstractUIObject {
-    public FooterComponent(WebDriver driver) {
+public class FooterComponentBase extends AbstractUIObject {
+
+    public FooterComponentBase(WebDriver driver) {
         super(driver);
     }
 
-    public FooterComponent(WebDriver driver, SearchContext searchContext) {
+    public FooterComponentBase(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
 }

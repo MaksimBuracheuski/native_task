@@ -2,24 +2,21 @@ package com.saucelabs.components;
 
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
-import org.testng.asserts.SoftAssert;
 
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
 
-public abstract class ProductContainer extends AbstractUIObject implements IMobileUtils {
-    public ProductContainer(WebDriver driver) {
+public abstract class ProductContainerBase extends AbstractUIObject implements IMobileUtils {
+
+    public ProductContainerBase(WebDriver driver) {
         super(driver);
     }
 
-    public ProductContainer(WebDriver driver, SearchContext searchContext) {
+    public ProductContainerBase(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
 
-    public abstract void validateProductContainerElements(SoftAssert softAssert);
-
-    public abstract void clickATBButton();
+    public abstract void clickAddToCartButton();
 
     public abstract void clickRemoveButton();
 
@@ -29,7 +26,13 @@ public abstract class ProductContainer extends AbstractUIObject implements IMobi
 
     public abstract String getProductPrice();
 
-    public abstract ExtendedWebElement getHandleATBButton();
-
     public abstract void clickOnImage();
+
+    public abstract boolean isATBButtonPresent();
+
+    public abstract boolean isProductPricePresent();
+
+    public abstract boolean isProductNamePresent();
+
+    public abstract boolean isProductImagePresent();
 }
