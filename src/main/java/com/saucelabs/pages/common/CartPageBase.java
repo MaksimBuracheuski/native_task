@@ -17,13 +17,15 @@ public abstract class CartPageBase extends AbstractPage {
 
     public abstract <T extends ProductCartContainerBase> List<T> getProducts();
 
+    public abstract boolean isCartEmpty();
+
     public abstract boolean isTitlePresent();
 
     public abstract boolean isContinueShoppingButtonPresent();
 
     public abstract boolean isCheckoutButtonPresent();
 
-    public abstract CheckoutPageBase openCheckout();
+    public abstract CheckoutInfoPageBase openCheckoutInfoPage();
 
     public abstract ProductListPageBase clickContinueShoppingButton();
 }

@@ -34,7 +34,7 @@ public class IdentityService implements ICustomTypePageFactory {
     public ProductListPageBase loginAsProblemUserByAutofill() {
         LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
         Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Login page isn't opened");
-        ProductListPageBase homePage = loginPage.loginByAutofill(UserBuilder.newInstance().standardUser().build());
+        ProductListPageBase homePage = loginPage.loginByAutofill(UserBuilder.newInstance().problemUser().build());
         return homePage;
     }
 }

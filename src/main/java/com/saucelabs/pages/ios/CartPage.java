@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import com.saucelabs.components.ioscomponents.ProductCartContainer;
 import com.saucelabs.constant.TimeConstant;
 import com.saucelabs.pages.common.CartPageBase;
-import com.saucelabs.pages.common.CheckoutPageBase;
+import com.saucelabs.pages.common.CheckoutInfoPageBase;
 import com.saucelabs.pages.common.ProductListPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
@@ -29,10 +29,14 @@ public class CartPage extends CartPageBase implements IMobileUtils {
     @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Item'`]")
     private List<ProductCartContainer> products;
 
-
     public CartPage(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(title);
+    }
+
+    @Override
+    public boolean isCartEmpty() {
+        return products.isEmpty();
     }
 
     @Override
@@ -51,9 +55,9 @@ public class CartPage extends CartPageBase implements IMobileUtils {
     }
 
     @Override
-    public CheckoutPageBase openCheckout() {
+    public CheckoutInfoPageBase openCheckoutInfoPage() {
         checkoutButton.click();
-        return initPage(getDriver(), CheckoutPageBase.class);
+        return initPage(getDriver(), CheckoutInfoPageBase.class);
     }
 
     @Override
