@@ -7,7 +7,6 @@ import org.testng.asserts.SoftAssert;
 
 import com.saucelabs.components.ProductContainerBase;
 import com.saucelabs.constant.ProjectConstant;
-import com.saucelabs.constant.TimeConstant;
 import com.saucelabs.dto.identity.User;
 import com.saucelabs.dto.identity.UserBuilder;
 import com.saucelabs.dto.product.Product;
@@ -30,15 +29,19 @@ public class SauceTest extends BaseTest implements ProjectConstant {
 
         //Login standard user with data
         ProductListPageBase productListPage = identityService.loginAsStandardUser();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
-        LoginPageBase loginPage = productListPage.getHeaderMenu().openHamburgerMenu().logout();
-        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged out");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
+        HamburgerMenuBase hamburgerMenu = productListPage.getHeaderMenu().openHamburgerMenu();
+        Assert.assertTrue(hamburgerMenu.isPageOpened(), "Hamburger menu isn't opened");
+        LoginPageBase loginPage = hamburgerMenu.logout();
+        Assert.assertTrue(loginPage.isPageOpened(), "Standard user isn't logged out");
 
         //Login problem user with data
         productListPage = identityService.loginAsProblemUser();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Problem user isn't logged in");
-        loginPage = productListPage.getHeaderMenu().openHamburgerMenu().logout();
-        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Problem user isn't logged out");
+        Assert.assertTrue(productListPage.isPageOpened(), "Problem user isn't logged in");
+        hamburgerMenu = productListPage.getHeaderMenu().openHamburgerMenu();
+        Assert.assertTrue(hamburgerMenu.isPageOpened(), "Hamburger menu isn't opened");
+        loginPage = hamburgerMenu.logout();
+        Assert.assertTrue(loginPage.isPageOpened(), "Problem user isn't logged out");
 
         //Login locked out user with data and verify that we get error message
         loginPage.typeUserData(UserBuilder.newInstance().lockedOutUser().build());
@@ -52,15 +55,19 @@ public class SauceTest extends BaseTest implements ProjectConstant {
 
         //Login standard user by autofill
         ProductListPageBase productListPage = identityService.loginAsStandardUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
-        LoginPageBase loginPage = productListPage.getHeaderMenu().openHamburgerMenu().logout();
-        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged out");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
+        HamburgerMenuBase hamburgerMenu = productListPage.getHeaderMenu().openHamburgerMenu();
+        Assert.assertTrue(hamburgerMenu.isPageOpened(), "Hamburger menu isn't opened");
+        LoginPageBase loginPage = hamburgerMenu.logout();
+        Assert.assertTrue(loginPage.isPageOpened(), "Standard user isn't logged out");
 
         //Login problem user by autofill
         productListPage = identityService.loginAsProblemUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Problem user isn't logged in");
-        loginPage = productListPage.getHeaderMenu().openHamburgerMenu().logout();
-        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Problem user isn't logged out");
+        Assert.assertTrue(productListPage.isPageOpened(), "Problem user isn't logged in");
+        hamburgerMenu = productListPage.getHeaderMenu().openHamburgerMenu();
+        Assert.assertTrue(hamburgerMenu.isPageOpened(), "Hamburger menu isn't opened");
+        loginPage = hamburgerMenu.logout();
+        Assert.assertTrue(loginPage.isPageOpened(), "Problem user isn't logged out");
     }
 
     @Test
@@ -70,11 +77,11 @@ public class SauceTest extends BaseTest implements ProjectConstant {
 
         //Login standard user by autofill
         ProductListPageBase productListPage = identityService.loginAsStandardUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
 
         //Verify hamburger menu
         HamburgerMenuBase hamburgerMenu = productListPage.getHeaderMenu().openHamburgerMenu();
-        Assert.assertTrue(hamburgerMenu.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Hamburger menu isn't opened");
+        Assert.assertTrue(hamburgerMenu.isPageOpened(), "Hamburger menu isn't opened");
         softAssert.assertTrue(hamburgerMenu.isAllItemsButtonPresent(), "All items button isn't presented");
         softAssert.assertTrue(hamburgerMenu.isWebViewButtonPresent(), "WebView button isn't presented");
         softAssert.assertTrue(hamburgerMenu.isQRCodeScannerButtonPresent(), "QR Code Scanner button isn't presented");
@@ -84,7 +91,7 @@ public class SauceTest extends BaseTest implements ProjectConstant {
         softAssert.assertTrue(hamburgerMenu.isLogoutButtonPresent(), "Logout button isn't presented");
         softAssert.assertTrue(hamburgerMenu.isResetAppStateButtonPresent(), "Reset App State button isn't presented");
         LoginPageBase loginPage = hamburgerMenu.logout();
-        Assert.assertTrue(loginPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Problem user isn't logged out");
+        Assert.assertTrue(loginPage.isPageOpened(), "Problem user isn't logged out");
     }
 
     @Test
@@ -117,13 +124,13 @@ public class SauceTest extends BaseTest implements ProjectConstant {
     public void testPDP() {
         SoftAssert softAssert = new SoftAssert();
         ProductListPageBase productListPage = identityService.loginAsStandardUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
 
         //Verify product data on PLP and PDP
         ProductContainerBase productContainer = productListPage.getRandomProductContainer();
         Product product = new Product(productContainer.getProductName(), productContainer.getProductPrice());
         ProductDetailsPageBase productDetailsPage = productListPage.openPDP(productContainer);
-        softAssert.assertTrue(productDetailsPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product Details Page isn't opened");
+        softAssert.assertTrue(productDetailsPage.isPageOpened(), "Product Details Page isn't opened");
         softAssert.assertTrue(productDetailsPage.isProductNamePresent(), "Product name isn't presented on PDP");
         softAssert.assertTrue(productDetailsPage.isProductDescriptionPresent(), "Product description isn't presented on PDP");
         softAssert.assertTrue(productDetailsPage.isProductImagePresent(), "Product image isn't presented on PDP");
@@ -139,7 +146,7 @@ public class SauceTest extends BaseTest implements ProjectConstant {
         productDetailsPage.clickRemoveButton();
         Assert.assertTrue(productDetailsPage.getHeaderMenu().isCartEmpty(), "ATB button wasn't clicked");
         productListPage = productDetailsPage.clickBackButton();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product List Page isn't opened");
+        Assert.assertTrue(productListPage.isPageOpened(), "Product List Page isn't opened");
         softAssert.assertAll();
     }
 
@@ -148,14 +155,15 @@ public class SauceTest extends BaseTest implements ProjectConstant {
     public void testCart() {
         SoftAssert softAssert = new SoftAssert();
         ProductListPageBase productListPage = identityService.loginAsStandardUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
         ProductDetailsPageBase productDetailsPage = productListPage.openPDP(productListPage.getRandomProductContainer());
 
         //Verify product data on PDP and Cart page
-        Assert.assertTrue(productDetailsPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product Details Page isn't opened");
+        Assert.assertTrue(productDetailsPage.isPageOpened(), "Product Details Page isn't opened");
         Product product = new Product(productDetailsPage.getProductName(), productDetailsPage.getProductPrice(), productDetailsPage.getProductDescription());
         productDetailsPage.clickAddToCartButton();
         CartPageBase cartPage = productDetailsPage.getHeaderMenu().openCartPage();
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page isn't opened");
         Assert.assertFalse(cartPage.isCartEmpty(), "Cart is empty");
         cartPage.getProducts().stream().forEach(item -> {
             item.swipeToProductCart();
@@ -174,7 +182,7 @@ public class SauceTest extends BaseTest implements ProjectConstant {
         Assert.assertTrue(cartPage.isContinueShoppingButtonPresent(), "Continue shopping button isn't presented on Cart page");
         Assert.assertTrue(cartPage.isCheckoutButtonPresent(), "Checkout button isn't presented on Cart page");
         productListPage = cartPage.clickContinueShoppingButton();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product List Page isn't opened");
+        Assert.assertTrue(productListPage.isPageOpened(), "Product List Page isn't opened");
         softAssert.assertAll();
     }
 
@@ -192,15 +200,15 @@ public class SauceTest extends BaseTest implements ProjectConstant {
 
         User user = userType.equals(STANDARD_USER) ? UserBuilder.newInstance().standardUser().build() : UserBuilder.newInstance().problemUser().build();
         ProductListPageBase productListPage = userType.equals(STANDARD_USER) ? identityService.loginAsStandardUserByAutofill() : identityService.loginAsProblemUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
         productListPage.addProductToCartByDD(productListPage.getProducts().get(0));
 
         CartPageBase cartPage = productListPage.getHeaderMenu().openCartPage();
-        Assert.assertTrue(cartPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Cart page isn't opened");
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page isn't opened");
         Assert.assertFalse(cartPage.isCartEmpty(), "Cart is empty");
 
         CheckoutInfoPageBase checkoutInfoPage = cartPage.openCheckoutInfoPage();
-        Assert.assertTrue(checkoutInfoPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Cart page isn't opened");
+        Assert.assertTrue(checkoutInfoPage.isPageOpened(), "Checkout Info page isn't opened");
         softAssert.assertTrue(checkoutInfoPage.isFirstNameFieldPresent(), "First name field isn't presented");
         softAssert.assertTrue(checkoutInfoPage.isLastNameFieldPresent(), "Last name field isn't presented");
         softAssert.assertTrue(checkoutInfoPage.isZipFieldPresent(), "Zip field isn't presented");
@@ -213,7 +221,7 @@ public class SauceTest extends BaseTest implements ProjectConstant {
             Assert.assertNotEquals(checkoutInfoPage.getFirstName(), user.username, "First name field is filled correctly");
         }
         productListPage = checkoutInfoPage.clickCancelButton();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
         softAssert.assertAll();
     }
 
@@ -223,19 +231,19 @@ public class SauceTest extends BaseTest implements ProjectConstant {
         SoftAssert softAssert = new SoftAssert();
         User user = UserBuilder.newInstance().standardUser().build();
         ProductListPageBase productListPage = identityService.loginAsStandardUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
 
         ProductDetailsPageBase productDetailsPage = productListPage.openPDP(productListPage.getRandomProductContainer());
-        Assert.assertTrue(productDetailsPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product Details Page isn't opened");
+        Assert.assertTrue(productDetailsPage.isPageOpened(), "Product Details Page isn't opened");
         Product product = new Product(productDetailsPage.getProductName(), productDetailsPage.getProductPrice(), productDetailsPage.getProductDescription());
         productDetailsPage.clickAddToCartButton();
 
         CartPageBase cartPage = productDetailsPage.getHeaderMenu().openCartPage();
-        Assert.assertTrue(cartPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Cart page isn't opened");
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page isn't opened");
         Assert.assertFalse(cartPage.isCartEmpty(), "Cart is empty");
 
         CheckoutInfoPageBase checkoutInfoPage = cartPage.openCheckoutInfoPage();
-        Assert.assertTrue(checkoutInfoPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Cart page isn't opened");
+        Assert.assertTrue(checkoutInfoPage.isPageOpened(), "Cart page isn't opened");
         checkoutInfoPage.typeUserData(user);
         CheckoutPageBase checkoutPage = checkoutInfoPage.clickContinueButton();
         checkoutPage.getProducts().stream().forEach(item -> {
@@ -252,10 +260,10 @@ public class SauceTest extends BaseTest implements ProjectConstant {
         softAssert.assertTrue(checkoutPage.isItemTotalPresent(), "Item total isn't presented");
         softAssert.assertTrue(checkoutPage.isTaxPresent(), "Tax isn't presented");
         softAssert.assertTrue(checkoutPage.isTotalPresent(), "Total isn't presented");
-        Assert.assertTrue(checkoutPage.getPaymentInformation().contains(user.getPaymentCard()), "Payment information isn't presented");
+        Assert.assertTrue(checkoutPage.getPaymentInformation().contains(user.getPaymentCard()), "Payment information isn't correct");
         Assert.assertEquals(checkoutPage.getItemTotal().split("\\$")[1], product.getPrice().split("\\$")[1], "Product price isn't correct");
         productListPage = checkoutPage.clickCancel();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
+        Assert.assertTrue(productListPage.isPageOpened(), "Product List Page isn't opened");
         softAssert.assertAll();
     }
 
@@ -264,41 +272,43 @@ public class SauceTest extends BaseTest implements ProjectConstant {
     public void testMakeAnOrder(String TUID, String userType) {
         User user = userType.equals(STANDARD_USER) ? UserBuilder.newInstance().standardUser().build() : UserBuilder.newInstance().problemUser().build();
         ProductListPageBase productListPage = userType.equals(STANDARD_USER) ? identityService.loginAsStandardUserByAutofill() : identityService.loginAsProblemUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
+        Assert.assertTrue(productListPage.isPageOpened(), "Product List Page isn't opened");
         productListPage.addProductToCartByDD(productListPage.getProducts().get(0));
 
         CartPageBase cartPage = productListPage.getHeaderMenu().openCartPage();
-        Assert.assertTrue(cartPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Cart page isn't opened");
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page isn't opened");
         Assert.assertFalse(cartPage.isCartEmpty(), "Cart is empty");
 
         CheckoutInfoPageBase checkoutInfoPage = cartPage.openCheckoutInfoPage();
-        Assert.assertTrue(checkoutInfoPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Checkout info page isn't opened");
+        Assert.assertTrue(checkoutInfoPage.isPageOpened(), "Checkout info page isn't opened");
         checkoutInfoPage.typeUserData(user);
         CheckoutPageBase checkoutPage = checkoutInfoPage.clickContinueButton();
-        Assert.assertTrue(checkoutPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Checkout page isn't opened");
+        Assert.assertTrue(checkoutPage.isPageOpened(), "Checkout page isn't opened");
 
         OrderPageBase orderPage = checkoutPage.clickFinishButton();
-        Assert.assertTrue(orderPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Order page isn't opened");
+        Assert.assertTrue(orderPage.isPageOpened(), "Order page isn't opened");
         if (userType.equals(STANDARD_USER)) {
             Assert.assertTrue(productListPage.getHeaderMenu().isCartEmpty(), "Standard user order isn't completed");
         } else {
             Assert.assertTrue(orderPage.getHeaderMenu().getCountOfProductInCart() == 1, "Problem user order is completed");
         }
         productListPage = orderPage.clickBackHomeButton();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Product list page isn't opened");
+        Assert.assertTrue(productListPage.isPageOpened(), "Product list page isn't opened");
     }
 
     @Test()
     @MethodOwner(owner = "mburacheuski")
     public void testDrawingPage() {
         ProductListPageBase productListPage = identityService.loginAsStandardUserByAutofill();
-        Assert.assertTrue(productListPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Standard user isn't logged in");
-        DrawingPageBase drawingPage = productListPage.getHeaderMenu().openHamburgerMenu().openDrawingPage();
-        Assert.assertTrue(drawingPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Drawing page isn't opened");
+        Assert.assertTrue(productListPage.isPageOpened(), "Standard user isn't logged in");
+        HamburgerMenuBase hamburgerMenu = productListPage.getHeaderMenu().openHamburgerMenu();
+        Assert.assertTrue(hamburgerMenu.isPageOpened(), "Hamburger menu isn't opened");
+        DrawingPageBase drawingPage = hamburgerMenu.openDrawingPage();
+        Assert.assertTrue(drawingPage.isPageOpened(), "Drawing page isn't opened");
         drawingPage.drawElement();
         Assert.assertTrue(drawingPage.isDrawnImagePresent(), "Drown image is presented");
         drawingPage.clickClearButton();
         Assert.assertFalse(drawingPage.isDrawnImagePresent(), "Drown image isn't deleted");
-        Assert.assertTrue(drawingPage.isPageOpened(TimeConstant.PAGE_OPENED_TO), "Drawing page isn't opened");
+        Assert.assertTrue(drawingPage.isPageOpened(), "Drawing page isn't opened");
     }
 }

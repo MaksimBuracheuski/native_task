@@ -1,31 +1,31 @@
-package com.saucelabs.pages.ios;
+package com.saucelabs.pages.android;
 
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
-import com.saucelabs.components.ioscomponents.ProductCartContainer;
+import com.saucelabs.components.androidcomponents.ProductCartContainer;
 import com.saucelabs.pages.common.CartPageBase;
 import com.saucelabs.pages.common.CheckoutInfoPageBase;
 import com.saucelabs.pages.common.ProductListPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = CartPageBase.class)
+@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase implements IMobileUtils {
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`label == 'YOUR CART'`]")
+    @FindBy(xpath = "//android.widget.TextView[@text='YOUR CART']")
     private ExtendedWebElement title;
 
-    @ExtendedFindBy(iosPredicate = "label == 'CONTINUE SHOPPING' AND name == 'test-CONTINUE SHOPPING'")
+    @FindBy(xpath = "//android.widget.TextView[@text='CONTINUE SHOPPING']")
     private ExtendedWebElement continueShoppingButton;
 
-    @ExtendedFindBy(iosPredicate = "label == 'CHECKOUT' AND name == 'test-CHECKOUT'")
+    @FindBy(xpath = "//android.widget.TextView[@text='CHECKOUT']")
     private ExtendedWebElement checkoutButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Item'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Item']")
     private List<ProductCartContainer> products;
 
     public CartPage(WebDriver driver) {

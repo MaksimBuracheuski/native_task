@@ -1,29 +1,29 @@
-package com.saucelabs.components.ioscomponents;
+package com.saucelabs.components.androidcomponents;
 
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 import com.saucelabs.components.ProductContainerBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductContainerBase.class)
+@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = ProductContainerBase.class)
 public class ProductContainer extends ProductContainerBase {
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"\uDB81\uDF41\"`]/**/XCUIElementTypeImage")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Item']//android.widget.ImageView")
     private ExtendedWebElement productImage;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`name == 'test-Item title'`]")
+    @FindBy(xpath = "//android.widget.TextView[@content-desc='test-Item title']")
     private ExtendedWebElement productName;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`name == 'test-Price'`]")
+    @FindBy(xpath = "//android.widget.TextView[@content-desc='test-Price']")
     private ExtendedWebElement productPrice;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'ADD TO CART'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-ADD TO CART']")
     private ExtendedWebElement addToCartButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'REMOVE'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-REMOVE']")
     private ExtendedWebElement removeButton;
 
     public ProductContainer(WebDriver driver) {
@@ -56,6 +56,7 @@ public class ProductContainer extends ProductContainerBase {
 
     @Override
     public String getProductPrice() {
+        swipe(productPrice);
         return productPrice.getText();
     }
 

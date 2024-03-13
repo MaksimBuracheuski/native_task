@@ -1,30 +1,30 @@
-package com.saucelabs.components.ioscomponents;
+package com.saucelabs.components.androidcomponents;
 
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 import com.saucelabs.components.ProductCartContainerBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductCartContainerBase.class)
+@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = ProductCartContainerBase.class)
 public class ProductCartContainer extends ProductCartContainerBase implements IMobileUtils {
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Amount'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Amount']")
     private ExtendedWebElement productQuantity;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Description'`]/XCUIElementTypeStaticText[1]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Description']/android.widget.TextView[1]")
     private ExtendedWebElement productName;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Description'`]/XCUIElementTypeStaticText[2]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Description']/android.widget.TextView[2]")
     private ExtendedWebElement productDescription;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Price'`]/XCUIElementTypeStaticText")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Price']/android.widget.TextView")
     private ExtendedWebElement productPrice;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'REMOVE'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-REMOVE']")
     private ExtendedWebElement removeButton;
 
     public ProductCartContainer(WebDriver driver) {
