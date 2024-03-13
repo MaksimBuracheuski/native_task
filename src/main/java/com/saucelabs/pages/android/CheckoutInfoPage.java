@@ -1,6 +1,7 @@
-package com.saucelabs.pages.ios;
+package com.saucelabs.pages.android;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 import com.saucelabs.dto.identity.User;
 import com.saucelabs.pages.common.CheckoutInfoPageBase;
@@ -8,27 +9,26 @@ import com.saucelabs.pages.common.CheckoutPageBase;
 import com.saucelabs.pages.common.ProductListPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = CheckoutInfoPageBase.class)
+@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CheckoutInfoPageBase.class)
 public class CheckoutInfoPage extends CheckoutInfoPageBase {
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`label == 'CHECKOUT: INFORMATION'`]")
+    @FindBy(xpath = "//android.widget.TextView[@text='CHECKOUT: INFORMATION']")
     private ExtendedWebElement title;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeTextField[`name == 'test-First Name'`]")
+    @FindBy(xpath = "//android.widget.EditText[@content-desc='test-First Name']")
     private ExtendedWebElement firstNameField;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeTextField[`name == 'test-Last Name'`]")
+    @FindBy(xpath = "//android.widget.EditText[@content-desc='test-Last Name']")
     private ExtendedWebElement lastNameField;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeTextField[`name == 'test-Zip/Postal Code'`]")
+    @FindBy(xpath = "//android.widget.EditText[@content-desc='test-Zip/Postal Code']")
     private ExtendedWebElement zipField;
 
-    @ExtendedFindBy(iosPredicate = "label == 'CANCEL' AND name == 'test-CANCEL'")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-CANCEL']")
     private ExtendedWebElement cancelButton;
 
-    @ExtendedFindBy(iosPredicate = "label == 'CONTINUE' AND name == 'test-CONTINUE'")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-CONTINUE']")
     private ExtendedWebElement continueButton;
 
     public CheckoutInfoPage(WebDriver driver) {

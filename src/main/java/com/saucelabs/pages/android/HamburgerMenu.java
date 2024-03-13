@@ -1,42 +1,42 @@
-package com.saucelabs.pages.ios;
+package com.saucelabs.pages.android;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 import com.saucelabs.pages.common.DrawingPageBase;
 import com.saucelabs.pages.common.HamburgerMenuBase;
 import com.saucelabs.pages.common.LoginPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = HamburgerMenuBase.class)
+@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = HamburgerMenuBase.class)
 public class HamburgerMenu extends HamburgerMenuBase {
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'ALL ITEMS'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-ALL ITEMS']")
     private ExtendedWebElement allItemsButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'WEBVIEW'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-WEBVIEW']")
     private ExtendedWebElement webViewButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'QR CODE SCANNER'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-QR CODE SCANNER']")
     private ExtendedWebElement qrCodeButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'GEO LOCATION'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-GEO LOCATION']")
     private ExtendedWebElement getLocationButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'DRAWING'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-DRAWING']")
     private ExtendedWebElement drawingButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'ABOUT'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-ABOUT']")
     private ExtendedWebElement aboutButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'LOGOUT'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-LOGOUT']")
     private ExtendedWebElement logoutButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == 'RESET APP STATE'`]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-RESET APP STATE']")
     private ExtendedWebElement resetAppStateButton;
 
     public HamburgerMenu(WebDriver driver) {
@@ -97,3 +97,4 @@ public class HamburgerMenu extends HamburgerMenuBase {
         return resetAppStateButton.isElementPresent();
     }
 }
+

@@ -1,7 +1,8 @@
-package com.saucelabs.pages.ios;
+package com.saucelabs.pages.android;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 import com.saucelabs.pages.common.DrawingPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
@@ -12,22 +13,22 @@ import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 import io.appium.java_client.HasSettings;
 import io.appium.java_client.Setting;
 
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = DrawingPageBase.class)
+@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = DrawingPageBase.class)
 public class DrawingPage extends DrawingPageBase implements IMobileUtils {
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`label == 'DRAWING'`]")
+    @FindBy(xpath = "//android.widget.TextView[@text='DRAWING']")
     private ExtendedWebElement title;
 
-    @ExtendedFindBy(iosPredicate = "label == 'CLEAR' AND name == 'test-CLEAR'")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-CLEAR']")
     private ExtendedWebElement clearButton;
 
-    @ExtendedFindBy(iosPredicate = "label == 'SAVE' AND name == 'test-SAVE'")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-SAVE']")
     private ExtendedWebElement saveButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'Signature Pad demo'`]")
+    @FindBy(xpath = "//android.webkit.WebView")
     private ExtendedWebElement signaturePadDemo;
 
-    @ExtendedFindBy(image = "images/triangle.png")
+    @ExtendedFindBy(image = "images/t.png")
     private ExtendedWebElement triangleImage;
 
     public DrawingPage(WebDriver driver) {
@@ -40,7 +41,7 @@ public class DrawingPage extends DrawingPageBase implements IMobileUtils {
         signaturePadDemo.isElementPresent();
         Actions actions = new Actions(getDriver());
         for (int i = 0; i < 53; i++) {
-            actions.moveToElement(signaturePadDemo.getElement(), 50, -300)
+            actions.moveToElement(signaturePadDemo.getElement(), 50, -700)
                     .clickAndHold()
                     .moveByOffset(100 - i, 0 + i)
                     .moveByOffset(-50 + i, 86 - i)
@@ -53,7 +54,7 @@ public class DrawingPage extends DrawingPageBase implements IMobileUtils {
     @Override
     public boolean isDrawnImagePresent() {
         HasSettings driver = (HasSettings) getDriver();
-        driver.setSetting(Setting.IMAGE_MATCH_THRESHOLD, 0.5);
+        driver.setSetting(Setting.IMAGE_MATCH_THRESHOLD, 0.7);
         return triangleImage.isElementPresent();
     }
 

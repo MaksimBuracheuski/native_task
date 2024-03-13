@@ -1,36 +1,36 @@
-package com.saucelabs.pages.ios;
+package com.saucelabs.pages.android;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 import com.saucelabs.pages.common.ProductDetailsPageBase;
 import com.saucelabs.pages.common.ProductListPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductDetailsPageBase.class)
+@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = ProductDetailsPageBase.class)
 public class ProductDetailsPage extends ProductDetailsPageBase implements IMobileUtils {
 
-    @ExtendedFindBy(iosPredicate = "label == 'BACK TO PRODUCTS' AND name == 'test-BACK TO PRODUCTS'")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-BACK TO PRODUCTS']")
     private ExtendedWebElement backButton;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Image Container'`]/**/XCUIElementTypeImage")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Image Container']/android.widget.ImageView")
     private ExtendedWebElement productImage;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Description'`]/XCUIElementTypeStaticText[1]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Description']/android.widget.TextView[1]")
     private ExtendedWebElement productName;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-Description'`]/XCUIElementTypeStaticText[2]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-Description']/android.widget.TextView[2]")
     private ExtendedWebElement productDescription;
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`name == 'test-Price'`]")
+    @FindBy(xpath = "//android.widget.TextView[@content-desc='test-Price']")
     private ExtendedWebElement productPrice;
 
-    @ExtendedFindBy(iosPredicate = "label == 'ADD TO CART' AND name == 'test-ADD TO CART'")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-ADD TO CART']")
     private ExtendedWebElement addToBagButton;
 
-    @ExtendedFindBy(iosPredicate = "label == 'REMOVE' AND name == 'test-REMOVE'")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-REMOVE']")
     private ExtendedWebElement removeButton;
 
     public ProductDetailsPage(WebDriver driver) {
