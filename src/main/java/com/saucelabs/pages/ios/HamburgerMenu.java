@@ -2,6 +2,8 @@ package com.saucelabs.pages.ios;
 
 import org.openqa.selenium.WebDriver;
 
+import com.saucelabs.constant.TimeConstant;
+import com.saucelabs.pages.common.DrawingPageBase;
 import com.saucelabs.pages.common.HamburgerMenuBase;
 import com.saucelabs.pages.common.LoginPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
@@ -48,5 +50,51 @@ public class HamburgerMenu extends HamburgerMenuBase {
         logoutButton.click();
         log.info("User is log outed");
         return initPage(getDriver(), LoginPageBase.class);
+    }
+
+    @Override
+    public DrawingPageBase openDrawingPage() {
+        drawingButton.click();
+        return initPage(getDriver(), DrawingPageBase.class);
+    }
+
+    @Override
+    public boolean isAllItemsButtonPresent() {
+        return allItemsButton.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isWebViewButtonPresent() {
+        return webViewButton.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isQRCodeScannerButtonPresent() {
+        return qrCodeButton.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isGeoLocationButtonPresent() {
+        return getLocationButton.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isDrawingButtonPresent() {
+        return drawingButton.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isAboutButtonPresent() {
+        return aboutButton.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isLogoutButtonPresent() {
+        return logoutButton.isElementPresent(TimeConstant.PAGE_OPENED_TO);
+    }
+
+    @Override
+    public boolean isResetAppStateButtonPresent() {
+        return resetAppStateButton.isElementPresent(TimeConstant.PAGE_OPENED_TO);
     }
 }
