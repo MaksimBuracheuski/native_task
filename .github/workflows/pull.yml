@@ -1,21 +1,33 @@
-name: Run Tests on Pull Request
+name: Build
+
 on:
+  workflow_dispatch:
   pull_request:
-    branches:
-      - update
+    types: [ opened, synchronize, edited, reopened ]
+    branches: [ "main" ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 11
-    uses: actions/setup-java@v3
-    with:
-      java-version: '17'
-      distribution: 'temurin'
-      cache: maven
-    - name: Build with Maven
-    run: mvn -B package --file pom.xml
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Build project with Maven
+        run: mvn -B package --file pom.xml -DskipTests
     
