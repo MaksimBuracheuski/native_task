@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run API Tests
 
 on:
   workflow_dispatch:
@@ -28,6 +28,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Build project with Maven
+      - name: Run API tests
         run: mvn test -Dtest=ApiGoRestTest 
     
