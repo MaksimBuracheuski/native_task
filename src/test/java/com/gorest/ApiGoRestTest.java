@@ -51,7 +51,6 @@ public class ApiGoRestTest implements IAbstractTest {
         GetPostsMethod api = new GetPostsMethod();
         api.callAPI();
         api.validateResponseAgainstSchema("api/posts/_get/rs.schema");
-
     }
 
     @Test
