@@ -1,0 +1,72 @@
+[
+  {
+    "id": 6777872,
+    "name": "Anjushri Embranthiri LLD",
+    "email": "anjushri_lld_embranthiri@barrows.test",
+    "gender": "male",
+    "status": "active"
+  },
+  {
+    "id": 6777869,
+    "name": "Miss Javas Embranthiri",
+    "email": "javas_embranthiri_miss@kuphal.example",
+    "gender": "female",
+    "status": "inactive"
+  },
+  {
+    "id": 6777868,
+    "name": "Rameshwar Tagore",
+    "email": "tagore_rameshwar@gleichner-bogisich.example",
+    "gender": "male",
+    "status": "inactive"
+  },
+  {
+    "id": 6777867,
+    "name": "Usha Bhat",
+    "email": "bhat_usha@nolan.example",
+    "gender": "female",
+    "status": "active"
+  },
+  {
+    "id": 6777866,
+    "name": "Chapala Gandhi",
+    "email": "chapala_gandhi@keebler-medhurst.test",
+    "gender": "female",
+    "status": "inactive"
+  },
+  {
+    "id": 6777865,
+    "name": "Vrund Khan",
+    "email": "khan_vrund@effertz.example",
+    "gender": "female",
+    "status": "active"
+  },
+  {
+    "id": 6777864,
+    "name": "Bhima Kapoor I",
+    "email": "i_kapoor_bhima@lemke-hessel.test",
+    "gender": "male",
+    "status": "active"
+  },
+  {
+    "id": 6777863,
+    "name": "Chitrangada Achari",
+    "email": "achari_chitrangada@dibbert.test",
+    "gender": "male",
+    "status": "active"
+  },
+  {
+    "id": 6777861,
+    "name": "Gauraang Khanna V",
+    "email": "khanna_v_gauraang@spencer-hudson.example",
+    "gender": "female",
+    "status": "active"
+  },
+  {
+    "id": 6777860,
+    "name": "Draupadi Patil JD",
+    "email": "draupadi_patil_jd@block.test",
+    "gender": "female",
+    "status": "active"
+  }
+]
