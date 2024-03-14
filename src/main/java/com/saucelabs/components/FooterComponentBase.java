@@ -14,4 +14,5 @@ public class FooterComponentBase extends AbstractUIObject {
     public FooterComponentBase(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
+
 }
