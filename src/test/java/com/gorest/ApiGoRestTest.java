@@ -44,6 +44,7 @@ public class ApiGoRestTest implements IAbstractTest {
         context = JsonPath.parse(api.callAPI().asString());
         List<Integer> idds = context.read("$..id");
         Assert.assertFalse(idds.stream().anyMatch(a -> a.equals(Integer.parseInt(id))));
+
     }
 
     @Test
