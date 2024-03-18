@@ -21,7 +21,9 @@
         <carina-appcenter.version>1.2.7</carina-appcenter.version>
 
         <java.version>11</java.version>
-        <zebrunner-agent.version>1.9.8</zebrunner-agent.version>
+<!--        <zebrunner-agent.version>1.9.8</zebrunner-agent.version>-->
+        <maven.compiler.soure>11</maven.compiler.soure>
+        <maven.compiler.target>11</maven.compiler.target>
         <suiteFile>testng.xml</suiteFile>
     </properties>
 
