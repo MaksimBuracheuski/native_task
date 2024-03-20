@@ -3,8 +3,6 @@
 
     <parameter name="suiteOwner" value="mburacheuski"/>
     <parameter name="jenkinsJobName" value="API Carina Tests"/>
-<!--    <parameter name="jenkinsJobType" value="web"/>-->
-<!--    <parameter name="jenkinsEnvironments" value="DEMO"/>-->
     <parameter name="jenkinsRegressionPipeline" value="web_regression, full_regression"/>
     <parameter name="jenkinsJobExecutionOrder" value="1"/>
     <parameter name="jenkinsJobExecutionMode" value="continue"/>
@@ -16,7 +14,7 @@
 
     <test name="Test-method test" group-by-instances="true">
         <classes>
-            <class name="com.gorest.ApiGoRestTest" />
+            <class name="com.api.gorest.ApiGoRestTest" />
         </classes>
     </test>
 </suite>
