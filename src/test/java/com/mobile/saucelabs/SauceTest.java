@@ -5,8 +5,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.constant.ProjectConstant;
 import com.mobile.saucelabs.components.ProductContainerBase;
-import com.mobile.saucelabs.constant.ProjectConstant;
 import com.mobile.saucelabs.dto.identity.User;
 import com.mobile.saucelabs.dto.identity.UserBuilder;
 import com.mobile.saucelabs.dto.product.Product;
@@ -104,9 +104,9 @@ public class SauceTest extends BaseTest implements ProjectConstant {
 
         //Verify base elements in product container
         softAssert.assertTrue(productContainer.isATBButtonPresent(), "ATB button isn't presented in product container");
-        softAssert.assertTrue(productContainer.isProductPricePresent(), "Product price button isn't presented in product container");
-        softAssert.assertTrue(productContainer.isProductImagePresent(), "Product image button isn't presented in product container");
-        softAssert.assertTrue(productContainer.isProductNamePresent(), "Product name button isn't presented in product container");
+        softAssert.assertTrue(productContainer.isProductPricePresent(), "Product price  isn't presented in product container");
+        softAssert.assertTrue(productContainer.isProductImagePresent(), "Product image  isn't presented in product container");
+        softAssert.assertTrue(productContainer.isProductNamePresent(), "Product name  isn't presented in product container");
 
         //Verify working ATB button, Remove buttons, ATB using DragAndDrop
         productContainer.clickAddToCartButton();
